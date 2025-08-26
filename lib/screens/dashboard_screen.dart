@@ -7,6 +7,7 @@ import 'judgments_screen.dart';
 import 'advocate_profile_screen.dart';
 import 'login_screen.dart';
 import 'management_screen.dart';
+import 'diary_dashboard_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -17,11 +18,18 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   File? _profileImage;
+  String advocateName = "Adv. John Doe"; // Temporary placeholder for now
+  List<Map<String, dynamic>> myCasesList = []; // Temporary empty list
 
   Future<void> _viewProfile() async {
     final updatedImage = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      MaterialPageRoute(
+        builder: (context) => ProfileScreen(
+          initialImage: _profileImage,
+          advocateName: advocateName,
+        ),
+      ),
     );
 
     if (updatedImage != null && mounted) {
@@ -109,6 +117,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             dashboardCard(
               context,
+              "My Diary",
+              Icons.calendar_month,
+              DiaryDashboardScreen(myCases: myCasesList),
+            ),
+            dashboardCard(
+              context,
               "Management",
               Icons.manage_accounts,
               const ManagementScreen(),
@@ -117,8 +131,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               context,
               "Cause List",
               Icons.list_alt,
-              const CauseListScreen(),
+              CauseListScreen(
+                advocateName: "Adv. Mayank Bhardwaj",
+              ), // ✅ Pass name here
             ),
+
             dashboardCard(
               context,
               "Judgments",

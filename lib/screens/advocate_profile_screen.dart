@@ -3,7 +3,11 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({
+    super.key,
+    File? initialImage,
+    required String advocateName,
+  });
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
