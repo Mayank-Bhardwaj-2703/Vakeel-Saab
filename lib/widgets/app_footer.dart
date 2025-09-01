@@ -11,7 +11,7 @@ class AppFooter extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Company Logo
-          Image.asset("assets/images/primary_logo.png", height: 35),
+          Image.asset("assets/images/primary_logo.png", height: 55),
           const SizedBox(height: 6),
 
           // Powered by text

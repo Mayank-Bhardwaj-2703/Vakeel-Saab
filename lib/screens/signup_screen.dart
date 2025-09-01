@@ -54,133 +54,143 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true, // ✅ Prevents overflow when keyboard opens
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              const Spacer(),
+        child: Column(
+          children: [
+            // Scrollable Form Section
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(
+                  20,
+                  20,
+                  20,
+                  MediaQuery.of(context).viewInsets.bottom + 20,
+                ),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
 
-              const Text(
-                "Create Your Account",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 30),
-
-              // Form Starts
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    // First Name
-                    TextFormField(
-                      controller: firstNameController,
-                      decoration: InputDecoration(
-                        labelText: "First Name",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                      // Title
+                      const Text(
+                        "Create Your Account",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? "Enter first name"
-                          : null,
-                    ),
-                    const SizedBox(height: 15),
+                      const SizedBox(height: 30),
 
-                    // Last Name
-                    TextFormField(
-                      controller: lastNameController,
-                      decoration: InputDecoration(
-                        labelText: "Last Name",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? "Enter last name"
-                          : null,
-                    ),
-                    const SizedBox(height: 15),
-
-                    // Date of Birth
-                    TextFormField(
-                      controller: dobController,
-                      readOnly: true,
-                      onTap: () => _selectDate(context),
-                      decoration: InputDecoration(
-                        labelText: "Date of Birth",
-                        suffixIcon: const Icon(Icons.calendar_today),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? "Select date of birth"
-                          : null,
-                    ),
-                    const SizedBox(height: 15),
-
-                    // Email
-                    TextFormField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: "Email",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Enter your email";
-                        }
-                        final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                        if (!emailRegex.hasMatch(value)) {
-                          return "Enter a valid email";
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Signup Button
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: _submitForm,
-                      child: const Text("Sign Up"),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Go Back to Login Button
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
+                      // First Name
+                      TextFormField(
+                        controller: firstNameController,
+                        decoration: InputDecoration(
+                          labelText: "First Name",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        );
-                      },
-                      child: const Text(
-                        "Already have an account? Login",
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
+                        ),
+                        validator: (value) => value == null || value.isEmpty
+                            ? "Enter first name"
+                            : null,
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 15),
+
+                      // Last Name
+                      TextFormField(
+                        controller: lastNameController,
+                        decoration: InputDecoration(
+                          labelText: "Last Name",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        validator: (value) => value == null || value.isEmpty
+                            ? "Enter last name"
+                            : null,
+                      ),
+                      const SizedBox(height: 15),
+
+                      // Date of Birth
+                      TextFormField(
+                        controller: dobController,
+                        readOnly: true,
+                        onTap: () => _selectDate(context),
+                        decoration: InputDecoration(
+                          labelText: "Date of Birth",
+                          suffixIcon: const Icon(Icons.calendar_today),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        validator: (value) => value == null || value.isEmpty
+                            ? "Select date of birth"
+                            : null,
+                      ),
+                      const SizedBox(height: 15),
+
+                      // Email
+                      TextFormField(
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Enter your email";
+                          }
+                          final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+                          if (!emailRegex.hasMatch(value)) {
+                            return "Enter a valid email";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Signup Button
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: _submitForm,
+                        child: const Text("Sign Up"),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Go Back to Login Button
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Already have an account? Login",
+                          style: TextStyle(fontSize: 16, color: Colors.blue),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+            ),
 
-              const Spacer(),
-
-              // Footer with company branding
-              const AppFooter(),
-            ],
-          ),
+            // Footer Stays Fixed
+            const AppFooter(),
+          ],
         ),
       ),
     );

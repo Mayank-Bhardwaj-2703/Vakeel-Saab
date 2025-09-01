@@ -8,6 +8,7 @@ import 'advocate_profile_screen.dart';
 import 'login_screen.dart';
 import 'management_screen.dart';
 import 'diary_dashboard_screen.dart';
+import '../widgets/app_footer.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -18,27 +19,23 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   File? _profileImage;
-  String advocateName = "Adv. John Doe"; // Temporary placeholder for now
-  List<Map<String, dynamic>> myCasesList = []; // Temporary empty list
+  String advocateName = "Adv. Mayank Bhardwaj"; // ✅ Placeholder
+  List<Map<String, dynamic>> myCasesList = []; // ✅ Temporary empty list
 
+  // ✅ Navigate to Profile Screen
   Future<void> _viewProfile() async {
-    final updatedImage = await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ProfileScreen(
-          initialImage: _profileImage,
-          advocateName: advocateName,
+          email: "adv.mayank@gmail.com", // Replace with real data if available
+          dob: "15-08-1998", // Replace with real data if available
         ),
       ),
     );
-
-    if (updatedImage != null && mounted) {
-      setState(() {
-        _profileImage = updatedImage;
-      });
-    }
   }
 
+  // ✅ Logout method
   void _logout() {
     Navigator.pushReplacement(
       context,
@@ -51,8 +48,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Vakeel Saab Dashboard"),
+        backgroundColor: Colors.blue,
+        elevation: 3,
         actions: [
-          // Profile Picture
+          // ✅ Profile Picture Icon in AppBar
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: GestureDetector(
@@ -67,7 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
 
-          // Dropdown Menu
+          // ✅ Dropdown Menu
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == 'profile') {
@@ -101,6 +100,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
+
+      // ✅ Only Dashboard Cards Now
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: GridView.count(
@@ -131,11 +132,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               context,
               "Cause List",
               Icons.list_alt,
-              CauseListScreen(
-                advocateName: "Adv. Mayank Bhardwaj",
-              ), // ✅ Pass name here
+              CauseListScreen(advocateName: advocateName),
             ),
-
             dashboardCard(
               context,
               "Judgments",
@@ -145,9 +143,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
       ),
+
+      // ✅ Footer
+      bottomNavigationBar: const AppFooter(),
     );
   }
 
+  // ✅ Dashboard Card Widget
   Widget dashboardCard(
     BuildContext context,
     String title,
