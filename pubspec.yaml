@@ -39,6 +39,10 @@ dependencies:
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
+  #this is done for persistant authentication, to keep user always logged in. this method helps in storing local tokens to check if the user is already logged in or not. depending on that it nevigates to login screen or dashboard directly.
+  
+  shared_preferences: ^2.2.2
+
   flutter_test:
     sdk: flutter
 

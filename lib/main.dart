@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/login_screen.dart';
+import 'screens/dashboard_screen.dart';
 
-void main() {
-  runApp(const mayankapp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // ✅ Needed for async before runApp
+
+  // ✅ Check if user is already logged in
+  final prefs = await SharedPreferences.getInstance();
+  final bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+  runApp(mayankapp(isLoggedIn: isLoggedIn));
 }
 
 class mayankapp extends StatelessWidget {
-  const mayankapp({super.key});
+  final bool isLoggedIn; // ✅ Add variable
+
+  const mayankapp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +27,9 @@ class mayankapp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: const LoginScreen(),
+
+      // ✅ If logged in → Dashboard, else → Login
+      home: isLoggedIn ? const DashboardScreen() : const LoginScreen(),
     );
   }
 }

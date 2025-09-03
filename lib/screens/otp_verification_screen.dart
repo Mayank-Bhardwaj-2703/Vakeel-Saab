@@ -1,5 +1,5 @@
 //dummy otp for testing is 123456
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
@@ -21,6 +21,12 @@ class OTPVerificationScreen extends StatefulWidget {
 }
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
+  Future<void> _persistLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    await prefs.setString('userEmail', widget.email); // optional
+  }
+
   final TextEditingController otpController = TextEditingController();
   bool isVerifying = false;
 
@@ -39,19 +45,20 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
     setState(() => isVerifying = true);
 
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () async {
       setState(() => isVerifying = false);
 
       if (enteredOtp == correctOtp) {
-        // ✅ OTP Success → Go to Dashboard
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(const SnackBar(content: Text("OTP Verified ✅")));
 
+        await _persistLogin(); // <-- SAVE LOGIN STATE
+
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const DashboardScreen()),
-          (route) => false, // Remove all previous routes
+          (route) => false,
         );
       } else {
         //OTP Failed → Go back where user came from
