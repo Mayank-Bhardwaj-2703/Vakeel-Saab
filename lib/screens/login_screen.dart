@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
-import 'dashboard_screen.dart';
+//import 'dashboard_screen.dart';
 import 'signup_screen.dart';
 import '../widgets/app_footer.dart';
+import 'otp_verification_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  // ✅ Add email controller here
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +73,8 @@ class LoginScreen extends StatelessWidget {
 
                           // Email / Phone Field
                           TextField(
+                            controller:
+                                emailController, //attaching email controller
                             decoration: InputDecoration(
                               labelText: "Enter Email",
                               labelStyle: const TextStyle(fontSize: 16),
@@ -90,13 +101,28 @@ class LoginScreen extends StatelessWidget {
                               elevation: 3,
                             ),
                             onPressed: () {
-                              Navigator.pushReplacement(
+                              final email = emailController.text.trim();
+
+                              if (email.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Please enter your email"),
+                                  ),
+                                );
+                                return;
+                              }
+
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const DashboardScreen(),
+                                  builder: (context) => OTPVerificationScreen(
+                                    email: email,
+                                    isSignup: false,
+                                  ),
                                 ),
                               );
                             },
+
                             child: const Text(
                               "Login",
                               style: TextStyle(

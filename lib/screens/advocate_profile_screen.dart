@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:async';
 import '../widgets/app_footer.dart';
+import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String email;
@@ -101,6 +102,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Profile Updated Successfully")),
     );
+  }
+
+  void _logout() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (route) => false,
+    );
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Logged Out Successfully ✅")));
   }
 
   @override
@@ -288,6 +301,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 20),
+            const SizedBox(height: 20),
+
+            ElevatedButton.icon(
+              onPressed: _logout,
+              icon: const Icon(Icons.logout),
+              label: const Text("Logout"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 40,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
           ],
         ),
       ),

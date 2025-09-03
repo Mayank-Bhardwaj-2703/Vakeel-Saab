@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../widgets/app_footer.dart';
 import 'login_screen.dart';
+import 'otp_verification_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -36,18 +37,25 @@ class _SignupScreenState extends State<SignupScreen> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Signup successful! Redirecting to login..."),
+      final email = emailController.text.trim();
+
+      if (email.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please enter your email")),
+        );
+        return;
+      }
+
+      // ✅ Navigate to OTP Verification Screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OTPVerificationScreen(
+            email: email,
+            isSignup: true, // ✅ Mark this as signup flow
+          ),
         ),
       );
-
-      Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
-      });
     }
   }
 
