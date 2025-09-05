@@ -19,10 +19,10 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   File? _profileImage;
-  String advocateName = "Adv. Mayank Bhardwaj"; // ✅ Placeholder
-  List<Map<String, dynamic>> myCasesList = []; // ✅ Temporary empty list
+  String advocateName = "Adv. Mayank Bhardwaj"; // Placeholder
+  List<Map<String, dynamic>> myCasesList = []; // Temporary empty list
 
-  // ✅ Navigate to Profile Screen
+  //Navigate to Profile Screen
   Future<void> _viewProfile() async {
     await Navigator.push(
       context,
@@ -35,7 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // ✅ Logout method
+  //Logout method
   void _logout() {
     Navigator.pushReplacement(
       context,
@@ -51,7 +51,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         backgroundColor: Colors.blue,
         elevation: 3,
         actions: [
-          // ✅ Profile Picture Icon in AppBar
+          //Profile Picture Icon in AppBar
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: GestureDetector(
@@ -66,7 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
 
-          // ✅ Dropdown Menu
+          //Dropdown Menu
           PopupMenuButton<String>(
             onSelected: (value) {
               if (value == 'profile') {
@@ -101,7 +101,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
 
-      // ✅ Only Dashboard Cards Now
+      // Only Dashboard Cards Now
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: GridView.count(
@@ -144,12 +144,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
 
-      // ✅ Footer
+      //Footer
       bottomNavigationBar: const AppFooter(),
     );
   }
 
-  // ✅ Dashboard Card Widget
+  // Dashboard Card Widget
   Widget dashboardCard(
     BuildContext context,
     String title,

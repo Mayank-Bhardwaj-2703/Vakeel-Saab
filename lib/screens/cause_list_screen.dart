@@ -45,7 +45,7 @@ class _CauseListScreenState extends State<CauseListScreen> {
     "City Civil Court": ["Judge E - Court 401"],
   };
 
-  // ✅ Dummy Data for Cause List Table (DateTime instead of String)
+  //Dummy Data for Cause List Table (DateTime instead of String)
   final List<Map<String, dynamic>> dummyCauseList = [
     {
       "caseNumber": "CS/123/2025",
@@ -83,7 +83,7 @@ class _CauseListScreenState extends State<CauseListScreen> {
           )
           .toList();
 
-      // ✅ Get advocate's own cases
+      //Get advocate's own cases
       myCases = causeList
           .where(
             (caseItem) =>
@@ -103,7 +103,7 @@ class _CauseListScreenState extends State<CauseListScreen> {
     );
   }
 
-  // ✅ Date Picker
+  //Date Picker
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -303,7 +303,7 @@ class _CauseListScreenState extends State<CauseListScreen> {
               ),
             const SizedBox(height: 20),
 
-            // MAINTAIN DIARY BUTTON ✅ FIXED
+            // MAINTAIN DIARY BUTTON FIXED
             if (myCases.isNotEmpty)
               ElevatedButton.icon(
                 onPressed: addToDiary,

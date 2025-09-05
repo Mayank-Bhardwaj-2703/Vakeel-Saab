@@ -12,7 +12,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // ✅ Add email controller here
+  //Add email controller here
   final TextEditingController emailController = TextEditingController();
 
   @override

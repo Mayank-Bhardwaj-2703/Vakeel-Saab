@@ -46,13 +46,13 @@ class _SignupScreenState extends State<SignupScreen> {
         return;
       }
 
-      // ✅ Navigate to OTP Verification Screen
+      //Navigate to OTP Verification Screen
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => OTPVerificationScreen(
             email: email,
-            isSignup: true, // ✅ Mark this as signup flow
+            isSignup: true, //Mark this as signup flow
           ),
         ),
       );
@@ -62,7 +62,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true, // ✅ Prevents overflow when keyboard opens
+      resizeToAvoidBottomInset: true, //Prevents overflow when keyboard opens
       body: SafeArea(
         child: Column(
           children: [
