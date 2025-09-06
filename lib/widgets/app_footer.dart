@@ -6,14 +6,15 @@ class AppFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(
+        vertical: 8,
+      ), // slightly reduced padding
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           // Company Logo
           Image.asset("assets/images/primary_logo.png", height: 55),
-          const SizedBox(height: 6),
-
+          const SizedBox(height: 2), // reduced space between logo and text
           // Powered by text
           const Text(
             "Powered by Codlyn Softwares",
